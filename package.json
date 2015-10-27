@@ -1,0 +1,24 @@
+{
+  "name": "zennovia-backup",
+  "version": "1.0.0",
+  "description": "comando para generar backups de los proyectos productivos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "zennovia",
+    "backup"
+  ],
+  "author": "Ruben Ajras",
+  "license": "MIT",
+  "bin": {
+    "zennovia-backup-mysql": "zennovia-backup-mysql.js",
+    "zennovia-backup-ftp": "zennovia-backup-ftp.js"
+  },
+  "dependencies": {
+    "ftp": "^0.3.10",
+    "mkdirp": "^0.5.1",
+    "nconf": "^0.8.1"
+  }
+}
