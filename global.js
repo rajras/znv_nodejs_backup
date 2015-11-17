@@ -1,7 +1,7 @@
 fs = require('fs');
 mkdirp = require('mkdirp');
 path = require("path");
-require(__dirname + "/process_config.js");
+require(__filename + "/process_config.js");
 
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
