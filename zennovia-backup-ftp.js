@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require(__dirname + '/global.js');
+require(path.basename(__filename) + '/global.js');
 var FtpClient = require('ftp');
 var proyectos;  
 var ftp = new FtpClient();

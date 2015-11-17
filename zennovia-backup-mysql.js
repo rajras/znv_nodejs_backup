@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require(__filename + '/global.js');
+require(path.basename(__filename) + '/global.js');
 
 var spawn = require('child_process').spawn,
     proyectos;
