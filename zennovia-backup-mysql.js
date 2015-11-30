@@ -1,9 +1,21 @@
 #!/usr/bin/env node
-require(path.basename(__filename) + '/global.js');
+require(__dirname + '/global.js');
 
 var spawn = require('child_process').spawn,
     proyectos;
-    
+
+function eliminarFile(url){
+    if(fs.existsSync(url)) {            
+            fs.unlinkSync(url);
+    };
+}
+function guardarDatos(datos,file){
+    mkdirp(path.dirname(file), function (err) {
+        if (err) throw err;
+        fs.appendFile(file, datos);
+    });
+}
+
 proyectos = config.get("proyectos");
 
 proyectos.forEach(function(proyecto){
@@ -17,7 +29,7 @@ proyectos.forEach(function(proyecto){
               ' ' + proyecto.base_datos.database;
        
         var fecha = new Date;
-        var url = __dirname ;
+        var url = process.cwd();
         
         if(config.get("backup_folder") !== undefined){
             url += '/' + config.get("backup_folder");

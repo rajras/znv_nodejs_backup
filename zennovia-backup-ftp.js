@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-require(path.basename(__filename) + '/global.js');
+require(__dirname + '/global.js');
+
 var FtpClient = require('ftp');
 var proyectos;  
 var ftp = new FtpClient();
@@ -23,7 +24,7 @@ proyectos.forEach(function(proyecto){
             password: proyecto.ftp.pass
         });
         
-        var url = __dirname ;
+        var url = process.cwd() ;
         
         if(config.get("backup_folder") !== undefined){
             url += '/' + config.get("backup_folder");
