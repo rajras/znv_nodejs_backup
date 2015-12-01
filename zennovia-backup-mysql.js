@@ -23,7 +23,7 @@ proyectos.forEach(function(proyecto){
         if(proyecto.prefijo === undefined || proyecto.base_datos.host === undefined || proyecto.base_datos.usuario === undefined || proyecto.base_datos.pass === undefined || proyecto.base_datos.database === undefined){
             return false;    
         }
-        com = 'mysqldump -h' + proyecto.base_datos.host + 
+        com = ' -h' + proyecto.base_datos.host + 
               ' -u' + proyecto.base_datos.usuario +
               ' -p' + proyecto.base_datos.pass +
               ' ' + proyecto.base_datos.database;
@@ -37,8 +37,13 @@ proyectos.forEach(function(proyecto){
         url += '/'+ proyecto.prefijo + '/mysql/' + proyecto.prefijo + "_" +  fecha.yyyymmdd() + ".sql";
         
         eliminarFile(url);
-
-        var child = spawn(process.env.comspec, ['/c', com]);
+        var child;
+        if(process.env.comspec != undefined){
+            child =  spawn(process.env.comspec, ['/c', 'mysqldump ' + com]);
+        }else{
+            child =  spawn('mysqldump', [com]);
+        }
+         
         child.stdout.on("data", function(data) {
             guardarDatos(data,url);
         });
