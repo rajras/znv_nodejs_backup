@@ -47,8 +47,8 @@ proyectos.forEach(function(proyecto){
             
             child =  spawn('mysqldump', [
                                         '-h'+ proyecto.base_datos.host,
-                                        ' -u' + proyecto.base_datos.usuario,
-                                        ' -p' + proyecto.base_datos.pass,
+                                        '-u' + proyecto.base_datos.usuario,
+                                        '-p' + proyecto.base_datos.pass,
                                         proyecto.base_datos.database
                                          ]);
         }
