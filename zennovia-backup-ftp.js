@@ -24,7 +24,7 @@ proyectos.forEach(function(proyecto){
             password: proyecto.ftp.pass
         });
         
-        var url = process.cwd() ;
+        var url = __dirname ;
         
         if(config.get("backup_folder") !== undefined){
             url += '/' + config.get("backup_folder");

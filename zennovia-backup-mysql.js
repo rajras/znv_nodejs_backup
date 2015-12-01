@@ -27,7 +27,7 @@ proyectos.forEach(function(proyecto){
         
        
         var fecha = new Date;
-        var url = process.cwd();
+        var url = __dirname;
         
         if(config.get("backup_folder") !== undefined){
             url += '/' + config.get("backup_folder");
