@@ -21,12 +21,10 @@ proyectos = config.get("proyectos");
 proyectos.forEach(function(proyecto){
     if(proyecto.base_datos !== undefined){
         if(proyecto.prefijo === undefined || proyecto.base_datos.host === undefined || proyecto.base_datos.usuario === undefined || proyecto.base_datos.pass === undefined || proyecto.base_datos.database === undefined){
+            console.log("salteo proyecto" + proyecto.nombre );
             return false;    
         }
-        com = ' -h' + proyecto.base_datos.host + 
-              ' -u' + proyecto.base_datos.usuario +
-              ' -p' + proyecto.base_datos.pass +
-              ' ' + proyecto.base_datos.database;
+        
        
         var fecha = new Date;
         var url = process.cwd();
@@ -38,14 +36,28 @@ proyectos.forEach(function(proyecto){
         
         eliminarFile(url);
         var child;
-        if(process.env.comspec != undefined){
+        var com;
+        if(process.env.comspec !== undefined){
+            com = ' -h' + proyecto.base_datos.host + 
+              ' -u' + proyecto.base_datos.usuario +
+              ' -p' + proyecto.base_datos.pass +
+              ' ' + proyecto.base_datos.database;
             child =  spawn(process.env.comspec, ['/c', 'mysqldump ' + com]);
         }else{
-            child =  spawn('mysqldump', [com]);
+            
+            child =  spawn('mysqldump', [
+                                        '-h'+ proyecto.base_datos.host,
+                                        ' -u' + proyecto.base_datos.usuario,
+                                        ' -p' + proyecto.base_datos.pass,
+                                        proyecto.base_datos.database
+                                         ]);
         }
          
         child.stdout.on("data", function(data) {
             guardarDatos(data,url);
+        });
+        child.stderr.on("data", function(data) {
+            console.log("error:" + data);
         });
         child.on('close', function (code) {
             if(code > 0){
